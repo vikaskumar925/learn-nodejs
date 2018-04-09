@@ -16,7 +16,16 @@ console.log("Command: ", command);
 
 console.log("yargs: ", argv);
 if(command ==='add'){
-    notes.addNote(argv.title,argv.body);
+    var note = notes.addNote(argv.title,argv.body);
+    if (note){
+        console.log("note saved");
+        console.log('-----');
+        console.log(`Title : ${note.title}`);
+        console.log(`Body: ${note.body}`);
+    } else {
+
+        console.log("Duplicate note");
+    }
 } else if (command === "list"){
     notes.getAll();
 } else if (command==="read"){
