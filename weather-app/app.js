@@ -1,8 +1,21 @@
-const request = require('request');
-
-request({
-    url:'https://maps.googleapis.com/maps/api/geocode/json?key=AIzaSyBoXbVZTU8ipGC3GNJPXs2TyOYBwZcKDI0&address=1301%20lombard%20street%20philadelphia',
-    json:true,
-}, (error, response, body) => {
-    console.log(JSON.stringify(body, undefined, 2));//pretty printing objects
+const yargs = require('yargs');
+const geocode = require('./geocode/geocode.js')
+const argv = yargs
+    .options({
+        a:{
+            demand:true,
+            alias: 'address',
+            describe:'Address to fetch weather for',
+            string:true,
+        }
+    })
+    .help()
+    .alias('help' ,'h')
+    .argv;
+geocode.geocodeAddress(argv.a,(errorMessage, results) => {
+    if(errorMessage){
+        console.log(errprMessage);
+    } else {
+        console.log(JSON.stringify(results, undefined, 2));
+    }
 });
